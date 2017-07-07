@@ -39,5 +39,36 @@ def file2maxtrix(filename):
         index+=1
     return returnMat,classLabelVector
 
+# 归一化 
+# 避免由于不同类别的数据大小差距
+# 导致某一类型的数值影响结果过大
+# 转化为0-1 或 -1-1 之间
+# newVal = (oldVal-min)/(max-min)
+def autoNorm(dataSet):
+    minVal = dataSet.min(0)
+    maxVal = dataSet.max(0)
+    ranges = maxVal - minVal
+    normDataSet = zeros(shape(dataSet))
+    m = dataSet.shape[0]
+    normDataSet = dataSet - tile(minVal,(m,1))
+    # m lines 1 rows
+    normDataSet = normDataSet/tile(ranges,(m,1))
+    return normDataSet,ranges,minVal
 
-
+# 内含的测试函数
+# 自我引用 输出错误率
+# file2Matrix & autoNorm read data and norm
+# 确定用哪些数据做训练数据 哪些做测试数据
+# classify分类
+def datingClassTest():
+    hoRatio = 0.1
+    datingDataMat,datingLabels = file2maxtrix('datingTestSet2.txt')
+    normMat,ranges,minVal = autoNorm(datingDataMat)
+    m = normMat.shape[0]
+    num4Test = int(hoRatio*m)
+    errorCount = 0.0
+    for i in range(num4Test):
+        classifierResult = classify(normMat[i,:],normMat[num4Test:m,:],datingLabels[num4Test:m],3)
+        print("the classifier came back with %d, real answer is %d" %(classifierResult,datingLabels[i]))
+        if (classifierResult != datingLabels[i]): errorCount += 1.0
+    print("the total error rating is %f" %(errorCount/float(num4Test)))
