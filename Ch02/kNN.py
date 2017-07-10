@@ -72,3 +72,41 @@ def datingClassTest():
         print("the classifier came back with %d, real answer is %d" %(classifierResult,datingLabels[i]))
         if (classifierResult != datingLabels[i]): errorCount += 1.0
     print("the total error rating is %f" %(errorCount/float(num4Test)))
+
+
+# img转化为向量 每个数字（0,1）代表一维
+def img2Vector(filename):
+    returnVec = zeros((1,1024))
+    fr = open(filename)
+    for i in range(32):
+        lineStr = fr.readline()
+        for j in range(32):
+            returnVec[0,i*32+j] = int(lineStr[j])
+    return returnVec
+
+#
+def handWritingClassTest():
+    hwLabels = []
+    trainingFileList = listdir('trainingDigits') 
+    m = len(trainingFileList)
+    trainingMat = zeros((m,1024))
+    for i in range(m):
+         fileNameStr = trainingFileList[i]
+         fileStr = fileNameStr.split('.')[0] # take off .txt
+         classNumStr = int(fileStr.split('_')[0])
+         hwLabels.append(classNumStr)
+         trainingMat[i,:] = img2Vector('trainingDigits/%s' % fileNameStr)
+
+    testFileList = listdir('testDigits')
+    errorCount = 0.0
+    mTest = len(testFileList)
+    for i in range(mTest):
+        fileNameStr = testFileList[i]
+        fileStr = fileNameStr.split('.')[0]
+        classNumStr = int(fileStr.split('_')[0])
+        vectorUnderTest = img2Vector('testDigits/%s' % fileNameStr)
+        classifierResult = classify(vectorUnderTest,trainingMat,hwLabels,3)
+        print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr))
+        if (classifierResult != classNumStr): errorCount += 1.0
+    print("\nthe total number of errors is: %d" % errorCount)
+    print("\nthe total error rate is: %f" % (errorCount/float(mTest)))

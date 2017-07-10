@@ -26,5 +26,8 @@ from numpy import *
 # normMat,ranges,minVal = kNN.autoNorm(datingDataMat)
 # print(normMat)
 
-# 测试
-kNN.datingClassTest()
+# 测试约会数据
+# kNN.datingClassTest()
+
+# 测试手写数字
+kNN.handWritingClassTest()
