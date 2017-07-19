@@ -1,4 +1,5 @@
 import trees
+import treePlotter
 
 myDat,labels = trees.CreateDataSet()
 # 测试计算香农熵
@@ -18,4 +19,5 @@ myDat,labels = trees.CreateDataSet()
 # print(trees.chooseBestFeatureToSplit(myDat))
 
 # 树结构 字典
-print(trees.createTree(myDat,labels))
+# print(trees.createTree(myDat,labels))
+treePlotter.createPlot()
