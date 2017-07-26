@@ -20,4 +20,10 @@ myDat,labels = trees.CreateDataSet()
 
 # 树结构 字典
 # print(trees.createTree(myDat,labels))
-treePlotter.createPlot()
+
+# 画出树结构
+# treePlotter.createPlot()
+
+# 树的节点数和深度
+# print(treePlotter.getNumleafs(trees.createTree(myDat,labels)))
+# print(treePlotter.getTreeDepth(trees.createTree(myDat,labels)))
