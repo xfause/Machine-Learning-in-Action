@@ -27,3 +27,5 @@ myDat,labels = trees.CreateDataSet()
 # 树的节点数和深度
 # print(treePlotter.getNumleafs(trees.createTree(myDat,labels)))
 # print(treePlotter.getTreeDepth(trees.createTree(myDat,labels)))
+
+treePlotter.createPlot(trees.createTree(myDat,labels))
