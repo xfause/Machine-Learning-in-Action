@@ -28,4 +28,13 @@ myDat,labels = trees.CreateDataSet()
 # print(treePlotter.getNumleafs(trees.createTree(myDat,labels)))
 # print(treePlotter.getTreeDepth(trees.createTree(myDat,labels)))
 
-treePlotter.createPlot(trees.createTree(myDat,labels))
+#
+# treePlotter.createPlot(trees.createTree(myDat,labels))
+
+# 测试分类器
+myTree = {'no surfacing': {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}}}
+# print(trees.classify(myTree,labels,[1,1]))
+
+# 测试存储 读取决策树模型
+trees.storeTree(myTree,'testClassify.txt')
+print(trees.grabTree('testClassify.txt'))
